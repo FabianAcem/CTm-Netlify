@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { Shield, Clock, Globe, Package, ArrowRight } from "lucide-react";
 import { useScrollAnimation, useStaggeredAnimation, slideInClasses, scrollToElement } from "../utils/animations.js";
 import { useSection } from "../hooks/useWordPressData.js";
 import { getIcon } from "../utils/icon-manager.js";
 
-// WordPress-kompatible Bildpfade
+// WordPress-kompatible Bildpfade - Für Netlify optimiert
 const getImagePath = (imageName) => {
-  // Prüfe ob WordPress-Umgebung
-  if (typeof window !== 'undefined' && window.__CTM__?.templateDir) {
-    // WordPress-Pfade verwenden
-    if (imageName.includes('Schiffcontainer_open')) {
-      return `${window.__CTM__.templateDir}/assets/assets/Schiffcontainer_open.C396tv5Y.png`;
-    } else {
-      return `${window.__CTM__.templateDir}/assets/assets/Schiffcontainer.-5H-Np4Z.png`;
-    }
-  }
-  
-  // Fallback für lokale Entwicklung
-  try {
-    if (imageName.includes('Schiffcontainer_open')) {
-      return require("../assets/Schiffcontainer_open.png");
-    } else {
-      return require("../assets/Schiffcontainer.png");
-    }
-  } catch {
-    // Backup für Vite
-    return imageName.includes('Schiffcontainer_open') 
-      ? "/src/assets/Schiffcontainer_open.png"
-      : "/src/assets/Schiffcontainer.png";
+  // Für Netlify - direkte Pfade aus public Ordner
+  if (imageName.includes('Schiffcontainer_open')) {
+    return "/Schiffcontainer_open.png";
+  } else {
+    return "/Schiffcontainer.png";
   }
 };
 
@@ -86,13 +69,13 @@ export default function Leistungen() {
               })()}
             </h2>
             <p className="text-base sm:text-lg text-white/80 max-w-2xl mx-auto">
-              {servicesData.subtitle || "Professionelle Containertransporte für alle Ihre Anforderungen"}
+              {servicesData.subtitle || "Professionelle Containertransporte fÃ¼r alle Ihre Anforderungen"}
             </p>
           </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Service-Karten auf großer durchsichtiger Kachel */}
+          {/* Service-Karten auf groÃŸer durchsichtiger Kachel */}
           <div ref={cardsRef} className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-8 shadow-2xl shadow-black/20">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
               {features.filter(feature => feature.visible !== false).map((feature, i) => {
@@ -135,7 +118,7 @@ export default function Leistungen() {
               })}
             </div>
 
-            {/* CTA mit 3D button - innerhalb der großen Kachel */}
+            {/* CTA mit 3D button - innerhalb der groÃŸen Kachel */}
             {servicesData.cta && (
               <div className={`mt-6 text-center transition-all duration-700 delay-500 ${
                 showContent ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
@@ -165,7 +148,7 @@ export default function Leistungen() {
                   }`}
                   onError={(e) => {
                     console.log('Image load error:', e.target.src);
-                    // Fallback für fehlende Bilder
+                    // Fallback fÃ¼r fehlende Bilder
                     e.target.style.display = 'none';
                   }}
                 />
@@ -193,7 +176,7 @@ export default function Leistungen() {
                   <div className="text-center">
                     <Clock className="w-3 h-3 text-gradient mx-auto mb-1" />
                     <div className="text-gradient font-bold">99.2%</div>
-                    <div className="text-white/80">Pünktlich</div>
+                    <div className="text-white/80">PÃ¼nktlich</div>
                   </div>
                   <div className="text-center">
                     <Shield className="w-3 h-3 text-gradient mx-auto mb-1" />
@@ -210,3 +193,4 @@ export default function Leistungen() {
     </section>
   );
 }
+
